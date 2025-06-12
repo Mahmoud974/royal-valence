@@ -45,7 +45,6 @@ export default function CardFood({
 }: CardFoodProps) {
   const [taille, setTaille] = useState("medium");
 
-  // Trouve l'index de la taille sélectionnée (0, 1, 2)
   const tailleIdx = tailleOptions.find((opt) => opt.value === taille)?.idx ?? 1;
 
   // Affiche le prix selon la taille sélectionnée, sinon affiche "Prix indisponible"
@@ -60,7 +59,7 @@ export default function CardFood({
         <Image
           src="/burger.jpg"
           alt="burger"
-          alt={nom}
+          alt="Hello "
           fill
           className="object-cover"
         />

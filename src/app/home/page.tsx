@@ -5,7 +5,6 @@ import Link from "next/link";
 export default function HomePromo() {
   return (
     <section className="max-w-6xl mx-auto mt-10 px-4">
-      {/* Carte principale en haut */}
       <div className="relative bg-black rounded-2xl overflow-hidden flex flex-col justify-end min-h-[420px] mb-6">
         <Image
           src="/burger.jpg"
