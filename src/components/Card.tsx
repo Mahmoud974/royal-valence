@@ -18,17 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Pencil, ShoppingBasket } from "lucide-react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import CardDialog from "./CardDialog";
 
 interface CardFoodProps {
@@ -73,7 +63,6 @@ export default function CardFood({
             <Image
               src="/burger.jpg"
               alt="burger"
-              alt="oko"
               fill
               className="object-cover"
             />

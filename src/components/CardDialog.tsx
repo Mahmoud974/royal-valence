@@ -4,11 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import {
   AlertDialogContent,
-  AlertDialogTitle,
-  AlertDialogDescription,
   AlertDialogCancel,
   AlertDialogAction,
-  AlertDialogHeader,
   AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
 import {
@@ -112,12 +109,9 @@ export default function CardDialog() {
                 key={idx}
                 className="
           snap-start flex flex-col items-center justify-between
-          rounded px-3 py-2 border
+           px-3 py-2 border border-slate-100 rounded-md
         "
               >
-                <span className="bg-orange-500 px-3 text-white text-sm rounded">
-                  {ingr.price}€
-                </span>
                 <Image
                   src="/burger.jpg"
                   alt={ingr.name}
@@ -125,13 +119,26 @@ export default function CardDialog() {
                   height={400}
                   className="rounded-full object-cover h-12 w-12"
                 />
-                <span className="text-sm">{ingr.name.toUpperCase()}</span>
-                <div className="flex items-center gap-2 mt-2">
-                  <Button variant="outline" size="icon">
+                <span className="text-sm text-center">
+                  {ingr.name.toUpperCase()}
+                </span>
+                <span className="bg-orange-500 px-3 text-white text-sm rounded">
+                  +{ingr.price}€
+                </span>
+                <div className="flex items-center gap-2 mt-2 bg-orange-500 rounded-full">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-full bg-orange-600 border-none text-white"
+                  >
                     −
                   </Button>
-                  <span>1</span>
-                  <Button variant="outline" size="icon">
+                  <span className="text-white font-bold">1</span>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-full bg-orange-600 border-none text-white"
+                  >
                     +
                   </Button>
                 </div>
