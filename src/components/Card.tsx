@@ -1,9 +1,7 @@
-// ✅ CardFood.tsx corrigé avec fermeture automatique en cliquant à l'extérieur
-
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
+import { useCardStore } from "@/store/useElementStore";
 import {
   Card,
   CardContent,
@@ -52,13 +50,22 @@ export default function CardFood({
   pates = [],
   vegetarien = false,
 }: CardFoodProps) {
+  const inputRef = useRef(null);
   const [taille, setTaille] = useState("medium");
-  const tailleIdx = tailleOptions.find((opt) => opt.value === taille)?.idx ?? 1;
 
+  const tailleIdx = tailleOptions.find((opt) => opt.value === taille)?.idx ?? 1;
   const prixAffiche =
-    Array.isArray(prix) && typeof prix[tailleIdx] === "number"
+    typeof prix[tailleIdx] === "number"
       ? `${prix[tailleIdx].toFixed(2)} €`
       : "Prix indisponible";
+
+  const { addCard, addBasket } = useCardStore();
+
+  const handleClick = () => {
+    const newItem = { nom, description, prix: prix[tailleIdx], pates };
+    addCard(newItem.nom, newItem.description, newItem.prix, newItem.pates);
+    addBasket(newItem);
+  };
 
   return (
     <AlertDialog>
@@ -67,6 +74,7 @@ export default function CardFood({
           <div className="relative h-58 -mt-7 w-full">
             <Image
               src="/burger.jpg"
+              sizes=""
               alt="burger"
               fill
               className="object-cover"
@@ -76,67 +84,53 @@ export default function CardFood({
             </Badge>
           </div>
           <CardHeader>
-            <div className="flex flex-col justify-between items-start">
-              <div className="space-y-1">
-                <CardTitle className="text-xl">{nom}</CardTitle>
-                <div className="text-xl font-bold text-orange-500">
-                  {prixAffiche}
-                </div>
-                <CardDescription>{description}</CardDescription>
+            <div className="space-y-1">
+              <CardTitle className="text-xl">{nom}</CardTitle>
+              <div className="text-xl font-bold text-orange-500">
+                {prixAffiche}
               </div>
+              <CardDescription>{description}</CardDescription>
             </div>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-2">
-                <Select defaultValue={taille} onValueChange={setTaille}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Taille" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {tailleOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label} : {prix[option.idx].toFixed(2)} €
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+              <Select defaultValue={taille} onValueChange={setTaille}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Taille" />
+                </SelectTrigger>
+                <SelectContent>
+                  {tailleOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label} : {prix[option.idx].toFixed(2)} €
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
 
               {pates.length > 0 && (
-                <div className="flex items-center gap-2">
-                  <Select defaultValue={pates[0]}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Type de pâte" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {pates.map((pate, idx) => (
-                        <SelectItem key={idx} value={pate}>
-                          {pate}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
-
-              <div className="flex items-center justify-end gap-2">
-                <Select defaultValue="1">
+                <Select defaultValue={pates[0]}>
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Qté" />
+                    <SelectValue placeholder="Type de pâte" />
                   </SelectTrigger>
                   <SelectContent>
-                    {[1, 2, 3, 4, 5].map((n) => (
-                      <SelectItem key={n} value={n.toString()}>
-                        {n}
+                    {pates.map((pate, idx) => (
+                      <SelectItem key={idx} value={pate}>
+                        {pate}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                <Button className="bg-orange-600 cursor-pointer hover:bg-green-600">
+              )}
+
+              <div className="flex justify-end gap-2">
+                <Button className="bg-orange-600 hover:bg-green-600">
                   <Pencil />
                 </Button>
-                <Button className="cursor-pointer hover:bg-orange-600">
+                <Button
+                  ref={inputRef}
+                  onClick={handleClick}
+                  className="hover:bg-orange-600 cursor-pointer"
+                >
                   <ShoppingBasket />
                 </Button>
               </div>
@@ -144,11 +138,10 @@ export default function CardFood({
           </CardContent>
         </Card>
       </AlertDialogTrigger>
-
-      <AlertDialogPortal>
+      {/* <AlertDialogPortal>
         <AlertDialogOverlay className="fixed inset-0 bg-black/50" />
         <CardDialog />
-      </AlertDialogPortal>
+      </AlertDialogPortal> */}
     </AlertDialog>
   );
 }

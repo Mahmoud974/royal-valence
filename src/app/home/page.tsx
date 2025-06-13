@@ -10,6 +10,7 @@ export default function HomePromo() {
           src="/burger.jpg"
           alt="Promo Royal Tacos"
           fill
+          sizes=""
           className="object-cover z-0"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
@@ -41,6 +42,7 @@ export default function HomePromo() {
         <div className="relative bg-[#22282f] rounded-2xl overflow-hidden min-h-[220px] flex flex-col justify-end">
           <Image
             src="/burger.jpg"
+            sizes=""
             alt="Custom Royal Tacos"
             fill
             className="object-cover z-0"
@@ -66,6 +68,7 @@ export default function HomePromo() {
         <div className="relative bg-white rounded-2xl overflow-hidden min-h-[220px] flex flex-col justify-end">
           <Image
             src="/burger.jpg"
+            sizes=""
             alt="Recyclage"
             fill
             className="object-cover z-0"

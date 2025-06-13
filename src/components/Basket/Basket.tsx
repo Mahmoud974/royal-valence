@@ -1,37 +1,12 @@
 "use client";
-import { CirclePlus } from "lucide-react";
+import { useCardStore } from "@/store/useElementStore";
+import { CirclePlus, CircleX, Trash2 } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 
 export default function Basket() {
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      name: "Steak Tenderloin & French Fries",
-      price: 80,
-      quantity: 2,
-      img: "/burger.jpg",
-    },
-    {
-      id: 2,
-      name: "Cheese burger with Extra Beef",
-      price: 15,
-      quantity: 1,
-      img: "/burger.jpg",
-    },
-  ]);
-
+  const { cart, addBasket, removeFromCart } = useCardStore();
   const [orderType, setOrderType] = useState("Dine in");
-
-  const handleQuantity = (index: number, delta: number) => {
-    setItems((prev) =>
-      prev.map((item, i) =>
-        i === index
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
-    );
-  };
 
   const suggestions = [
     { id: 101, name: "Cheesy Bread", price: 4.49 },
@@ -43,28 +18,38 @@ export default function Basket() {
     },
   ];
 
+  const handleQuantity = (index: number, delta: number) => {
+    const updated = [...cart];
+    updated[index].quantity = Math.max(
+      1,
+      (updated[index].quantity || 1) + delta
+    );
+    // ⚠️ Ceci ne modifie pas le store. À améliorer si tu veux persister dynamiquement.
+  };
+
   const handleAddSuggestion = (product) => {
-    const exists = items.find((item) => item.name === product.name);
+    const exists = cart.find((item) => item.nom === product.name);
     if (exists) {
-      setItems((prev) =>
-        prev.map((item) =>
-          item.name === product.name
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
+      handleQuantity(cart.indexOf(exists), 1);
     } else {
-      setItems((prev) => [
-        ...prev,
-        { ...product, quantity: 1, img: "/burger.jpg" },
-      ]);
+      addBasket({
+        nom: product.name,
+        description: "Produit suggéré",
+        prix: product.price,
+        pates: [],
+        quantity: 1,
+      });
     }
   };
+
+  const total = cart.reduce(
+    (acc, item) => acc + item.prix * (item.quantity || 1),
+    0
+  );
 
   return (
     <main className="bg-white w-full h-full shadow-md rounded-2xl">
       <div className="p-4 sm:p-6 lg:p-7">
-        {/* En-tête commande */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
           <div>
             <p className="font-semibold text-md">Ariel Hikmat</p>
@@ -80,7 +65,6 @@ export default function Basket() {
           </div>
         </div>
 
-        {/* Type de commande */}
         <div className="flex flex-wrap justify-center items-center bg-gray-100 rounded-full p-1 w-full max-w-xs mx-auto mb-6">
           {["Dine in", "Take Away", "Delivery"].map((type) => (
             <button
@@ -97,38 +81,22 @@ export default function Basket() {
           ))}
         </div>
 
-        {/* Coupon */}
-        <div className="mt-7 space-y-2">
-          <h3 className="text-md font-bold">Ajouter un code coupon</h3>
-          <div className="flex flex-col sm:flex-row items-stretch bg-gray-100 rounded-md p-1 w-full max-w-md">
-            <input
-              type="text"
-              placeholder="Entrez votre code"
-              className="w-full bg-transparent px-2 py-2 focus:outline-none"
-            />
-            <button className="bg-orange-500 text-white px-4 py-2 rounded sm:ml-2 mt-2 sm:mt-0">
-              Appliquer
-            </button>
-          </div>
-        </div>
-
-        {/* Liste des produits */}
         <div className="mt-7 space-y-4">
           <h3 className="text-md font-bold">Détail de la commande</h3>
-          {items.map((item, idx) => (
+          {cart.map((item, idx) => (
             <div
+              key={idx}
               className="flex flex-col sm:flex-row items-center justify-between gap-4"
-              key={item.id}
             >
               <Image
                 width={64}
                 height={64}
-                src={item.img}
-                alt={item.name}
+                src="/burger.jpg"
+                alt={item.nom}
                 className="w-16 h-16 object-cover rounded"
               />
-              <div className="flex-1 w-full sm:ml-4 text-center sm:text-left">
-                <p className="text-sm font-medium">{item.name}</p>
+              <div className="flex-1 sm:ml-4 text-center sm:text-left">
+                <p className="text-md font-medium">{item.nom}</p>
                 <div className="flex justify-center sm:justify-start items-center mt-1">
                   <button
                     className="bg-orange-500 rounded-full text-white w-8 h-8 flex items-center justify-center"
@@ -136,7 +104,7 @@ export default function Basket() {
                   >
                     -
                   </button>
-                  <span className="mx-2">{item.quantity}</span>
+                  <span className="mx-2">{item.quantity || 1}</span>
                   <button
                     className="bg-orange-500 rounded-full text-white w-8 h-8 flex items-center justify-center"
                     onClick={() => handleQuantity(idx, 1)}
@@ -145,38 +113,44 @@ export default function Basket() {
                   </button>
                 </div>
               </div>
-              <p className="text-orange-500 font-bold text-sm sm:text-base">
-                ${item.price * item.quantity}.00
-              </p>
+              <div className="flex items-center gap-2">
+                <p className="text-orange-500 font-bold text-sm sm:text-base">
+                  €{(item.prix * (item.quantity || 1)).toFixed(2)}
+                </p>
+                <button
+                  onClick={() => removeFromCart(item.nom)}
+                  className="text-red-600 hover:text-red-800 cursor-pointer"
+                  title="Supprimer"
+                >
+                  <CircleX size={20} />
+                </button>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Récap */}
         <div className="bg-gray-50 text-gray-600 rounded-md my-4 p-4 space-y-2">
           <div className="flex justify-between text-sm">
             <p>Total</p>
-            <p>13.90€</p>
+            <p>{total.toFixed(2)} €</p>
           </div>
           <div className="flex justify-between text-sm">
             <p>Tax</p>
-            <p>1.56€</p>
+            <p>{(total * 0.1).toFixed(2)} €</p>
           </div>
           <hr className="border-dashed border-gray-400 my-2" />
           <div className="flex font-bold justify-between text-base">
             <p>Montant total</p>
-            <p>31.56€</p>
+            <p>{(total * 1.1).toFixed(2)} €</p>
           </div>
         </div>
 
-        {/* Bouton commander */}
         <div className="mt-6">
           <button className="bg-orange-600 text-white w-full py-3 rounded-md hover:bg-orange-700 transition">
             Commander
           </button>
         </div>
 
-        {/* Suggestions */}
         <div className="mt-10 bg-gray-50 rounded-xl p-4">
           <h3 className="font-semibold text-lg mb-3 text-center sm:text-left">
             Vous pourriez aimer :
@@ -193,10 +167,9 @@ export default function Basket() {
                     {product.price.toFixed(2)} €
                   </p>
                 </div>
-
                 <button
                   onClick={() => handleAddSuggestion(product)}
-                  className="ml-3 flex items-center justify-center w-8 h-8 rounded-full bg-green-100 text-green-700 hover:bg-green-200"
+                  className=" ml-3 flex items-center justify-center w-8 h-8 rounded-full bg-green-100 text-green-700 hover:bg-green-200"
                 >
                   <CirclePlus size={18} />
                 </button>

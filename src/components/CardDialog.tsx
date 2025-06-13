@@ -7,6 +7,8 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
   AlertDialogFooter,
+  AlertDialogDescription,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import {
   Select,
@@ -39,6 +41,7 @@ export default function CardDialog() {
 
   return (
     <AlertDialogContent className="max-w-full w-full max-h-[90vh] overflow-y-auto p-4">
+      <AlertDialogDescription> </AlertDialogDescription>
       <div className="space-y-4">
         <div className="relative w-full h-52 rounded-md overflow-hidden">
           <Image
@@ -49,14 +52,16 @@ export default function CardDialog() {
           />
         </div>
         <div className="space-y-1">
-          <h2 className="text-2xl font-bold">Cannibale</h2>
-          <p className="text-orange-600 text-2xl font-semibold">
-            {prixAffiche}
-          </p>
-          <p className="text-muted-foreground">
-            Sauce barbecue, mozzarella, poulet rôti, merguez, haché au bœuf goût
-            flambé.
-          </p>
+          <AlertDialogTitle>
+            <p className="text-2xl font-bold">Cannibale</p>
+            <p className="text-orange-600 text-2xl font-semibold">
+              {prixAffiche}
+            </p>
+            <p className=" text-lg">
+              Sauce barbecue, mozzarella, poulet rôti, merguez, haché au bœuf
+              goût flambé.
+            </p>
+          </AlertDialogTitle>
         </div>
         <div>
           <label className="font-semibold mb-1 block">Taille</label>
