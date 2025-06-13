@@ -6,6 +6,29 @@
 body {
   background-color: #f7f8f8;
 }
+@layer components {
+  .scroll-container {
+    /* Regroupe tous tes utilitaires Tailwind */
+    @apply flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-4 px-4 py-2;
+
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(249, 115, 22, 0.8) rgba(229, 231, 235, 0.6);
+  }
+
+  /* WebKit (Chrome, Safari, Edge) */
+  .scroll-container::-webkit-scrollbar {
+    height: 0.5rem; /* équivalent à h-2 */
+    background: transparent;
+  }
+  .scroll-container::-webkit-scrollbar-track {
+    background-color: rgba(229, 231, 235, 0.6); /* bg-gray-200/60 */
+  }
+  .scroll-container::-webkit-scrollbar-thumb {
+    background-color: rgba(249, 115, 22, 0.8); /* bg-orange-500/80 */
+    border-radius: 9999px; /* rounded-full */
+  }
+}
 
 @custom-variant dark (&:is(.dark *));
 
