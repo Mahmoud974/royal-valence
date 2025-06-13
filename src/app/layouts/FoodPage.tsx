@@ -19,7 +19,7 @@ export default async function FoodPage({ foodType, title }: FoodPageProps) {
 
   return (
     <FoodLayout title={title}>
-      <div className="grid grid-cols-4 gap-2 flex-wrap">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredProducts.map((product, index: number) => (
           <CardFood key={index} {...product} />
         ))}

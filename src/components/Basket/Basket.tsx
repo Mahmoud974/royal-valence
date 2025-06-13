@@ -63,8 +63,9 @@ export default function Basket() {
 
   return (
     <main className="bg-white w-full h-full shadow-md rounded-2xl">
-      <div className="p-7">
-        <div className="flex justify-between items-center mb-6">
+      <div className="p-4 sm:p-6 lg:p-7">
+        {/* En-tête commande */}
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
           <div>
             <p className="font-semibold text-md">Ariel Hikmat</p>
             <p className="text-sm text-gray-500">
@@ -74,19 +75,20 @@ export default function Basket() {
               Wed, July 12, 2023 • 06:12 PM
             </p>
           </div>
-          <div className="bg-emerald-700 text-white rounded-lg px-3 py-1 text-sm font-semibold">
+          <div className="bg-emerald-700 text-white rounded-lg px-3 py-1 text-sm font-semibold w-fit">
             A4
           </div>
         </div>
 
-        <div className="flex justify-between items-center bg-gray-100 rounded-full p-1 w-full max-w-xs mx-auto mb-6">
+        {/* Type de commande */}
+        <div className="flex flex-wrap justify-center items-center bg-gray-100 rounded-full p-1 w-full max-w-xs mx-auto mb-6">
           {["Dine in", "Take Away", "Delivery"].map((type) => (
             <button
               key={type}
-              className={`px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
+              className={`px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 m-1 ${
                 orderType === type
-                  ? "bg-orange-600  cursor-pointer text-white"
-                  : "text-gray-500 cursor-pointer hover:bg-gray-200"
+                  ? "bg-orange-600 text-white"
+                  : "text-gray-500 hover:bg-gray-200"
               }`}
               onClick={() => setOrderType(type)}
             >
@@ -95,34 +97,39 @@ export default function Basket() {
           ))}
         </div>
 
-        <div className="mt-7 space-y-4">
+        {/* Coupon */}
+        <div className="mt-7 space-y-2">
           <h3 className="text-md font-bold">Ajouter un code coupon</h3>
-          <div className="flex items-center bg-gray-100 rounded-md p-1 w-full max-w-md">
+          <div className="flex flex-col sm:flex-row items-stretch bg-gray-100 rounded-md p-1 w-full max-w-md">
             <input
               type="text"
               placeholder="Entrez votre code"
-              className="w-full bg-transparent px-2 py-1 focus:outline-none"
+              className="w-full bg-transparent px-2 py-2 focus:outline-none"
             />
-            <button className="bg-orange-500 cursor-pointer text-white px-2 py-1 rounded">
+            <button className="bg-orange-500 text-white px-4 py-2 rounded sm:ml-2 mt-2 sm:mt-0">
               Appliquer
             </button>
           </div>
         </div>
 
+        {/* Liste des produits */}
         <div className="mt-7 space-y-4">
           <h3 className="text-md font-bold">Détail de la commande</h3>
           {items.map((item, idx) => (
-            <div className="flex items-center justify-between" key={item.id}>
+            <div
+              className="flex flex-col sm:flex-row items-center justify-between gap-4"
+              key={item.id}
+            >
               <Image
-                width={100}
-                height={100}
+                width={64}
+                height={64}
                 src={item.img}
                 alt={item.name}
                 className="w-16 h-16 object-cover rounded"
               />
-              <div className="flex-1 ml-4">
-                <p>{item.name}</p>
-                <div className="flex items-center">
+              <div className="flex-1 w-full sm:ml-4 text-center sm:text-left">
+                <p className="text-sm font-medium">{item.name}</p>
+                <div className="flex justify-center sm:justify-start items-center mt-1">
                   <button
                     className="bg-orange-500 rounded-full text-white w-8 h-8 flex items-center justify-center"
                     onClick={() => handleQuantity(idx, -1)}
@@ -138,42 +145,47 @@ export default function Basket() {
                   </button>
                 </div>
               </div>
-              <p className="text-orange-500 font-bold">
+              <p className="text-orange-500 font-bold text-sm sm:text-base">
                 ${item.price * item.quantity}.00
               </p>
             </div>
           ))}
         </div>
 
-        <div className="bg-gray-50 text-gray-600 rounded-md my-4 h-auto p-3 space-y-2">
-          <div className="flex justify-between">
+        {/* Récap */}
+        <div className="bg-gray-50 text-gray-600 rounded-md my-4 p-4 space-y-2">
+          <div className="flex justify-between text-sm">
             <p>Total</p>
             <p>13.90€</p>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between text-sm">
             <p>Tax</p>
             <p>1.56€</p>
           </div>
-          <div className="w-full border-t-2 border-dashed border-gray-400 my-4"></div>
-          <div className="flex font-bold justify-between">
+          <hr className="border-dashed border-gray-400 my-2" />
+          <div className="flex font-bold justify-between text-base">
             <p>Montant total</p>
             <p>31.56€</p>
           </div>
         </div>
 
-        <div className="mt-7">
-          <button className="bg-orange-600 text-white w-full py-2 rounded-md">
+        {/* Bouton commander */}
+        <div className="mt-6">
+          <button className="bg-orange-600 text-white w-full py-3 rounded-md hover:bg-orange-700 transition">
             Commander
           </button>
         </div>
 
+        {/* Suggestions */}
         <div className="mt-10 bg-gray-50 rounded-xl p-4">
-          <h3 className="font-semibold text-lg mb-3">Vous pourriez aimer :</h3>
-          <div className="space-y-2">
+          <h3 className="font-semibold text-lg mb-3 text-center sm:text-left">
+            Vous pourriez aimer :
+          </h3>
+          <div className="space-y-3">
             {suggestions.map((product) => (
               <div
                 key={product.id}
-                className="flex justify-between items-center border-t py-2"
+                className="flex justify-between items-center border-t pt-2"
               >
                 <div className="flex-1 pr-2">
                   <p className="text-sm">{product.name}</p>

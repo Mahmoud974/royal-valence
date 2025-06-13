@@ -26,25 +26,35 @@ const promos = [
 export default function PromoCards() {
   return (
     <section className="py-12 px-4 bg-white">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="max-w-6xl mx-auto grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {promos.map((promo, idx) => (
           <div key={idx} className="flex flex-col items-center">
-            <div className="w-72 h-72 bg-gray-600  flex items-center justify-center overflow-hidden">
+            <div className="w-full aspect-square bg-gray-600 flex items-center justify-center overflow-hidden rounded-lg shadow">
               {promo.img ? (
                 <Image
                   src={promo.img}
                   alt={promo.title}
-                  width={288}
-                  height={288}
+                  width={500}
+                  height={500}
                   className="object-cover w-full h-full"
                 />
               ) : (
-                <span className="text-white text-lg">{promo.title}</span>
+                <span className="text-white text-lg text-center px-4">
+                  {promo.title}
+                </span>
               )}
             </div>
 
-            <div className="w-72 mt-2 flex flex-col">
-              <button className="w-full bg-gray-600 text-white text-xl font-normal py-2 rounded-none">
+            <div className="w-full mt-4 flex flex-col items-center text-center">
+              <h3 className="text-lg font-semibold">{promo.title}</h3>
+              {promo.subtitle && (
+                <p className="text-sm text-gray-500">{promo.subtitle}</p>
+              )}
+              {promo.description && (
+                <p className="text-sm text-gray-700">{promo.description}</p>
+              )}
+
+              <button className="mt-3 w-full bg-gray-800 text-white py-2 text-sm rounded-md hover:bg-gray-700 transition">
                 VOIR PLUS
               </button>
             </div>

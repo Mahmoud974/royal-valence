@@ -12,11 +12,15 @@ export default function FoodLayout({
   return (
     <>
       <Banner />
-      <main className="mx-auto container">
-        <h1 className="text-3xl py-4">{title}</h1>
-        <div className="flex items-start space-x-8">
+      <main className="mx-auto container px-4">
+        <h1 className="text-2xl sm:text-3xl py-4 font-semibold">{title}</h1>
+
+        <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-8 space-y-8 lg:space-y-0">
+          {/* Section Produits */}
           <div className="flex-1 space-y-8">{children}</div>
-          <div className="sticky top-4 h-fit">
+
+          {/* Section Panier */}
+          <div className="lg:sticky lg:top-4 w-full lg:w-[400px]">
             <Basket />
           </div>
         </div>
