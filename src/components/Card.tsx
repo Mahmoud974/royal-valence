@@ -1,4 +1,7 @@
+// ✅ CardFood.tsx corrigé avec fermeture automatique en cliquant à l'extérieur
+
 "use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
 import {
@@ -18,7 +21,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Pencil, ShoppingBasket } from "lucide-react";
-import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogPortal,
+  AlertDialogOverlay,
+} from "@/components/ui/alert-dialog";
 import CardDialog from "./CardDialog";
 
 interface CardFoodProps {
@@ -41,15 +49,12 @@ export default function CardFood({
   nom,
   description,
   prix,
-
   pates = [],
   vegetarien = false,
 }: CardFoodProps) {
   const [taille, setTaille] = useState("medium");
-
   const tailleIdx = tailleOptions.find((opt) => opt.value === taille)?.idx ?? 1;
 
-  // Affiche le prix selon la taille sélectionnée, sinon affiche "Prix indisponible"
   const prixAffiche =
     Array.isArray(prix) && typeof prix[tailleIdx] === "number"
       ? `${prix[tailleIdx].toFixed(2)} €`
@@ -83,7 +88,6 @@ export default function CardFood({
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-3">
-              {/* Taille */}
               <div className="flex items-center gap-2">
                 <Select defaultValue={taille} onValueChange={setTaille}>
                   <SelectTrigger className="w-full">
@@ -92,18 +96,13 @@ export default function CardFood({
                   <SelectContent>
                     {tailleOptions.map((option) => (
                       <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                        {Array.isArray(prix) &&
-                        typeof prix[option.idx] === "number"
-                          ? ` : ${prix[option.idx].toFixed(2)} €`
-                          : ""}
+                        {option.label} : {prix[option.idx].toFixed(2)} €
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* Type de pâte, si défini */}
               {pates.length > 0 && (
                 <div className="flex items-center gap-2">
                   <Select defaultValue={pates[0]}>
@@ -121,7 +120,6 @@ export default function CardFood({
                 </div>
               )}
 
-              {/* Quantité & actions */}
               <div className="flex items-center justify-end gap-2">
                 <Select defaultValue="1">
                   <SelectTrigger className="w-full">
@@ -146,7 +144,11 @@ export default function CardFood({
           </CardContent>
         </Card>
       </AlertDialogTrigger>
-      <CardDialog />
+
+      <AlertDialogPortal>
+        <AlertDialogOverlay className="fixed inset-0 bg-black/50" />
+        <CardDialog />
+      </AlertDialogPortal>
     </AlertDialog>
   );
 }

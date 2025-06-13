@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { toppings } from "@/app/data/toppings";
+import { ShoppingBasket } from "lucide-react";
 
 export default function CardDialog() {
   const tailleOptions = [
@@ -49,7 +50,9 @@ export default function CardDialog() {
         </div>
         <div className="space-y-1">
           <h2 className="text-2xl font-bold">Cannibale</h2>
-          <p className="text-orange-600 text-xl font-semibold">{prixAffiche}</p>
+          <p className="text-orange-600 text-2xl font-semibold">
+            {prixAffiche}
+          </p>
           <p className="text-muted-foreground">
             Sauce barbecue, mozzarella, poulet rôti, merguez, haché au bœuf goût
             flambé.
@@ -155,7 +158,7 @@ export default function CardDialog() {
       <AlertDialogFooter className="mt-6">
         <AlertDialogCancel>Annuler</AlertDialogCancel>
         <AlertDialogAction className="bg-orange-600 hover:bg-orange-700">
-          Ajouter au panier
+          <ShoppingBasket />
         </AlertDialogAction>
       </AlertDialogFooter>
     </AlertDialogContent>
