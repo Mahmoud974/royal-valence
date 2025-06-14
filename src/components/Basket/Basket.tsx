@@ -1,6 +1,6 @@
 "use client";
 import { useCardStore } from "@/store/useElementStore";
-import { CirclePlus, CircleX } from "lucide-react";
+import { CirclePlus, CircleX, Pen } from "lucide-react";
 import Image from "next/image";
 import React  from "react";
 import Artwork from "./Artwork";
@@ -53,16 +53,19 @@ export default function Basket() {
         <div className="flex justify-start flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
           <div>
             <p className="font-semibold text-md">Mercredi 12 juillet 2025 • 18:15 </p>
-            <p className="text-sm text-gray-500">
-              Order #925 / <span className="capitalize">Dine ine</span>
+          <div className="flex items-center">
+          <p className="text-sm text-gray-500">
+              Adresse : 78 rue Victor Hugo - Valence 26000 
             </p>
+            <Pen className="w-4 text-orange-500 ml-1"/>
+            
+          </div>
             <p className="text-sm text-gray-500">
-            Mercredi 12 juillet 2025 • 18:15 
+              Order #925  
             </p>
+         
           </div>
-          <div className="bg-emerald-700 text-white rounded-lg px-3 py-1 text-sm font-semibold w-fit">
-            A4
-          </div>
+          
         </div>
         
  
@@ -130,8 +133,9 @@ export default function Basket() {
           </div>
           <hr className="border-dashed border-gray-400 my-2" />
           <div className="flex font-bold justify-between text-base">
-            <p>Montant total</p>
-            <p>{(total * 1.1).toFixed(2)} €</p>
+            0 article | {(total * 1.1).toFixed(2)} €
+            
+            <p>Payer</p>
           </div>
         </div>
 
