@@ -70,8 +70,10 @@ export default function Basket() {
         
  
 
-        <div className="mt-7 space-y-4">
+       
           <h3 className="text-md font-bold">🛒 Détail de la commande <span className="rounded-xs py-1 bg-orange-600 px-2 text-white">Dine in </span></h3>
+        <div className="bg-gray-50 text-gray-600 rounded-md my-4 p-4 space-y-2">
+        <div className="mt-7 space-y-4">
           
           {cart.map((item, idx) => (
             <div
@@ -122,7 +124,6 @@ export default function Basket() {
           ))}
         </div>
 
-        <div className="bg-gray-50 text-gray-600 rounded-md my-4 p-4 space-y-2">
           <div className="flex justify-between text-sm">
             <p>Total</p>
             <p>{total.toFixed(2)} €</p>
@@ -131,17 +132,17 @@ export default function Basket() {
             <p>Tax</p>
             <p>{(total * 0.1).toFixed(2)} €</p>
           </div>
-          <hr className="border-dashed border-gray-400 my-2" />
+          {/* <hr className="border-dashed border-gray-400 my-2" /> */}
+          
+        </div>
+
+        <div className="mt">
+          <button className="bg-orange-600 px-3 text-white w-full py-3 rounded-md hover:bg-orange-700 transition">
           <div className="flex font-bold justify-between text-base">
             0 article | {(total * 1.1).toFixed(2)} €
             
             <p>Payer</p>
           </div>
-        </div>
-
-        <div className="mt-6">
-          <button className="bg-orange-600 text-white w-full py-3 rounded-md hover:bg-orange-700 transition">
-            Commander
           </button>
         </div>
         <div className="mt-3">
