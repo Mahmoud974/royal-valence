@@ -2,11 +2,12 @@
 import { useCardStore } from "@/store/useElementStore";
 import { CirclePlus, CircleX } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React  from "react";
+import Artwork from "./Artwork";
 
 export default function Basket() {
   const { cart, addBasket, removeFromCart } = useCardStore();
-  const [orderType, setOrderType] = useState("Dine in");
+ 
 
   const suggestions = [
     { id: 101, name: "Cheesy Bread", price: 4.49 },
@@ -49,54 +50,44 @@ export default function Basket() {
   return (
     <main className="bg-white w-full h-full shadow-md rounded-2xl">
       <div className="p-4 sm:p-6 lg:p-7">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+        <div className="flex justify-start flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
           <div>
-            <p className="font-semibold text-md">Ariel Hikmat</p>
+            <p className="font-semibold text-md">Mercredi 12 juillet 2025 • 18:15 </p>
             <p className="text-sm text-gray-500">
-              Order #925 / <span className="capitalize">{orderType}</span>
+              Order #925 / <span className="capitalize">Dine ine</span>
             </p>
             <p className="text-sm text-gray-500">
-              Wed, July 12, 2023 • 06:12 PM
+            Mercredi 12 juillet 2025 • 18:15 
             </p>
           </div>
           <div className="bg-emerald-700 text-white rounded-lg px-3 py-1 text-sm font-semibold w-fit">
             A4
           </div>
         </div>
-
-        <div className="flex flex-wrap justify-center items-center bg-gray-100 rounded-full p-1 w-full max-w-xs mx-auto mb-6">
-          {["Dine in", "Take Away", "Delivery"].map((type) => (
-            <button
-              key={type}
-              className={`px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 m-1 ${
-                orderType === type
-                  ? "bg-orange-600 text-white"
-                  : "text-gray-500 hover:bg-gray-200"
-              }`}
-              onClick={() => setOrderType(type)}
-            >
-              {type}
-            </button>
-          ))}
-        </div>
+        
+ 
 
         <div className="mt-7 space-y-4">
-          <h3 className="text-md font-bold">Détail de la commande</h3>
+          <h3 className="text-md font-bold">🛒 Détail de la commande <span className="rounded-xs py-1 bg-orange-600 px-2 text-white">Dine in </span></h3>
+          
           {cart.map((item, idx) => (
             <div
               key={idx}
               className="flex flex-col sm:flex-row items-center justify-between gap-4"
             >
               <Image
-                width={64}
-                height={64}
+                width={74}
+                height={74}
                 src="/burger.jpg"
                 alt={item.nom}
                 className="w-16 h-16 object-cover rounded"
               />
               <div className="flex-1 sm:ml-4 text-center sm:text-left">
-                <p className="text-md font-medium">{item.nom}</p>
+                <p className="text-md font-bold">{item.nom}</p>
+                <p className="text-md text-xs">Medium</p>
+             
                 <div className="flex justify-center sm:justify-start items-center mt-1">
+                  
                   <button
                     className="bg-orange-500 rounded-full text-white w-8 h-8 flex items-center justify-center"
                     onClick={() => handleQuantity(idx, -1)}
@@ -148,6 +139,26 @@ export default function Basket() {
           <button className="bg-orange-600 text-white w-full py-3 rounded-md hover:bg-orange-700 transition">
             Commander
           </button>
+        </div>
+        <div className="mt-3">
+          <h3 className="text-md font-bold">{ ` ❤️   Favoris`}</h3>
+          <div className="flex  bg-gray-50 text-gray-600 rounded-md my-4 p-4  ">
+
+
+          <Artwork/>
+     
+        
+          </div>
+        </div>
+        <div className="mt-3">
+          <h3 className="text-md font-bold">{ ` 🎨  Mes oeuvres d'art`}</h3>
+          <div className="flex  bg-gray-50 text-gray-600 rounded-md my-4 p-4  ">
+
+
+          <Artwork/>
+     
+        
+          </div>
         </div>
 
         <div className="mt-10 bg-gray-50 rounded-xl p-4">

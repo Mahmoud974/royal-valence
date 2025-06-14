@@ -1,4 +1,3 @@
-// ✅ store/useElementStore.ts
 import { create } from "zustand";
 
 export interface CardFood {

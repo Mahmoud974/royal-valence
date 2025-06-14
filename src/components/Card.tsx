@@ -59,12 +59,12 @@ export default function CardFood({
       ? `${prix[tailleIdx].toFixed(2)} €`
       : "Prix indisponible";
 
-  const { addCard, addToCart } = useCardStore();
+  const { addCard, addBasket } = useCardStore();
 
   const handleClick = () => {
     const newItem = { nom, description, prix: prix[tailleIdx], pates };
     addCard(newItem.nom, newItem.description, newItem.prix, newItem.pates);
-    addToCart(newItem);
+    addBasket(newItem);
   };
 
   return (

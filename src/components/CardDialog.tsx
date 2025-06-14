@@ -153,15 +153,14 @@ export default function CardDialog() {
               </div>
             ))}
           </div>
-
-          {/* Optional: dégradés aux extrémités pour un effet “fade” */}
+ 
           <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-white to-transparent"></div>
           <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-white to-transparent"></div>
         </div>
       </div>
 
       <AlertDialogFooter className="mt-6">
-        <AlertDialogCancel>Annuler</AlertDialogCancel>
+        <AlertDialogCancel className="cursor-pointer">Annuler</AlertDialogCancel>
         <AlertDialogAction className="bg-orange-600 hover:bg-orange-700">
           <ShoppingBasket />
         </AlertDialogAction>

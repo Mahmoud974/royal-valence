@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-
+import { FaHeart, FaRegUserCircle } from "react-icons/fa";
 export default function Navbar() {
   const pathname = usePathname();
-
+  const [orderType, setOrderType] = useState("Dine in");
   const pages = [
     { label: "Home", path: "/" },
     { label: "Pizzas", path: "/pizzas" },
@@ -24,11 +24,26 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="bg-white shadow"
     >
-      <div className="flex justify-between items-center container mx-auto py-4 px-4">
-        <div className="flex items-center gap-20">
+      <div className="flex justify-around items-center container mx-auto py-4 px-4">
+        <div className="flex items-center gap-5  ">
           <h1 className="text-2xl font-bold text-orange-600">
             <Link href="/">Royal</Link>
           </h1>
+          <div className="flex  flex-wrap justify-center items-center bg-gray-100 rounded-full p-1 w-full max-w-xs mx-auto ">
+          {["Dine in", "Take Away", "Delivery"].map((type) => (
+            <button
+              key={type}
+              className={`px-4 py-2 cursor-pointer text-sm font-medium rounded-full transition-colors duration-200 m-1 ${
+                orderType === type
+                  ? "bg-orange-600 text-white"
+                  : "text-gray-500 hover:bg-gray-200"
+              }`}
+              onClick={() => setOrderType(type)}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
 
           <ul className="flex gap-10 text-sm font-medium text-gray-700">
             {pages.map((page) => {
@@ -60,7 +75,10 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Link
+        <FaRegUserCircle href="/register" className="text-3xl text-orange-600"  />
+        <FaHeart className="text-3xl text-orange-600"/>
+          
+          {/* <Link
             href="/register"
             className="bg-orange-600 text-white hover:text-orange-600 px-4 py-2 rounded-full text-sm font-semibold hover:bg-white hover:border-2 hover:border-orange-500 transition"
           >
@@ -71,7 +89,7 @@ export default function Navbar() {
             className="border-2 border-orange-600 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold hover:bg-orange-600 hover:text-white transition"
           >
             Se connecter
-          </Link>
+          </Link> */}
         </div>
       </div>
 
