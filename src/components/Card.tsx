@@ -55,16 +55,16 @@ export default function CardFood({
 
   const tailleIdx = tailleOptions.find((opt) => opt.value === taille)?.idx ?? 1;
   const prixAffiche =
-    typeof prix[tailleIdx] === "number"
+    prix && prix.length > tailleIdx && typeof prix[tailleIdx] === "number"
       ? `${prix[tailleIdx].toFixed(2)} €`
       : "Prix indisponible";
 
-  const { addCard, addBasket } = useCardStore();
+  const { addCard, addToCart } = useCardStore();
 
   const handleClick = () => {
     const newItem = { nom, description, prix: prix[tailleIdx], pates };
     addCard(newItem.nom, newItem.description, newItem.prix, newItem.pates);
-    addBasket(newItem);
+    addToCart(newItem);
   };
 
   return (
@@ -101,7 +101,11 @@ export default function CardFood({
                 <SelectContent>
                   {tailleOptions.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
-                      {option.label} : {prix[option.idx].toFixed(2)} €
+                      {option.label} :{" "}
+                      {prix && prix.length > option.idx && typeof prix[option.idx] === "number"
+                        ? prix[option.idx].toFixed(2)
+                        : "N/A"}{" "}
+                      €
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -129,7 +133,7 @@ export default function CardFood({
                 <Button
                   ref={inputRef}
                   onClick={handleClick}
-                  className="hover:bg-orange-600 cursor-pointer"
+                  className="hover:bg-orange-600"
                 >
                   <ShoppingBasket />
                 </Button>
@@ -138,10 +142,10 @@ export default function CardFood({
           </CardContent>
         </Card>
       </AlertDialogTrigger>
-      {/* <AlertDialogPortal>
+      <AlertDialogPortal>
         <AlertDialogOverlay className="fixed inset-0 bg-black/50" />
         <CardDialog />
-      </AlertDialogPortal> */}
+      </AlertDialogPortal>
     </AlertDialog>
   );
 }

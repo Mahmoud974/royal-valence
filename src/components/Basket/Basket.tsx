@@ -1,6 +1,6 @@
 "use client";
 import { useCardStore } from "@/store/useElementStore";
-import { CirclePlus, CircleX, Trash2 } from "lucide-react";
+import { CirclePlus, CircleX } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 
@@ -24,7 +24,6 @@ export default function Basket() {
       1,
       (updated[index].quantity || 1) + delta
     );
-    // ⚠️ Ceci ne modifie pas le store. À améliorer si tu veux persister dynamiquement.
   };
 
   const handleAddSuggestion = (product) => {
