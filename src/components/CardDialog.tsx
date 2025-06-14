@@ -108,9 +108,9 @@ export default function CardDialog() {
             </SelectContent>
           </Select>
         </div>
-        Suppléments
+       <h3 className="font-bold"> Suppléments</h3>
         <div className="relative max-w-md mx-auto">
-          {/* Container scrollable */}
+         
           <div className="scroll-container">
             {toppings.map((ingr, idx) => (
               <div
@@ -121,7 +121,7 @@ export default function CardDialog() {
         "
               >
                 <Image
-                  src="/burger.jpg"
+                  src={`/supplements/${ingr.image}.png`}
                   alt={ingr.name}
                   width={400}
                   height={400}
@@ -153,14 +153,15 @@ export default function CardDialog() {
               </div>
             ))}
           </div>
- 
+
+          {/* Optional: dégradés aux extrémités pour un effet “fade” */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-white to-transparent"></div>
           <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-white to-transparent"></div>
         </div>
       </div>
 
       <AlertDialogFooter className="mt-6">
-        <AlertDialogCancel className="cursor-pointer">Annuler</AlertDialogCancel>
+        <AlertDialogCancel className="cursor">Annuler</AlertDialogCancel>
         <AlertDialogAction className="bg-orange-600 hover:bg-orange-700">
           <ShoppingBasket />
         </AlertDialogAction>
