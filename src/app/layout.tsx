@@ -1,10 +1,13 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/components/Bottom/Footer";
 import Navbar from "@/components/Header/Navbar";
 import PromoCards from "@/components/Bottom/PromoCards";
-import { getServerSession } from "next-auth";
+  
 import { Providers } from "@/components/Providers";
+import { getServerSession } from "next-auth";
+ 
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,21 +16,30 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   const session = await getServerSession();
-  
+
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col antialiased">
-        <Providers session={session}>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <PromoCards />
-          <Footer />
-        </Providers>
-      </body>
+      {/* flex ligne : [sidebar] [colonne principale] */}
+      <body className="min-h-screen flex bg-gray-50">
+  <Providers session={session}>
+    
+
+    {/* Contenu principal */}
+    <div className="flex flex-col flex-1">
+      <Navbar />
+      {/* Sidebar vertical */}
+   
+      <main className="flex-1">{children}</main>
+      <PromoCards />
+      <Footer />
+    </div>
+  </Providers>
+</body>
+
     </html>
   );
 }

@@ -8,13 +8,13 @@ import { motion } from "framer-motion";
 import { FaHeart, FaRegUserCircle, FaSearch, FaTimes } from "react-icons/fa";
 
 const categories = [
-  { label: "Home", path: "/", image: "home.png" },
-  { label: "Offres", path: "/offres", image: "offres.png" },
+ 
   { label: "Burgers", path: "/burgers", image: "burgers.png" },
   { label: "Tacos", path: "/tacos", image: "tacos.png" },
+  { label: "Desserts", path: "/desserts", image: "desserts.png" },
   { label: "Pizzas", path: "/pizzas", image: "pizzas.png" },
   { label: "Salades", path: "/salades", image: "salades.png" },
-  { label: "Desserts", path: "/desserts", image: "desserts.png" },
+
   { label: "Boissons", path: "/boissons", image: "boissons.png" },
 ];
 
@@ -89,7 +89,7 @@ export default function Navbar() {
       </div>
 
       {/* Ligne 2 : catégories */}
-      <div className="flex justify-center py-4 px-4 overflow-x-auto scrollbar-hide bg-gray-50">
+      <div className="flex justify-center py-4 px-4 overflow-x-auto scrollbar-hide  ">
         <ul className="flex space-x-8 items-center justify-center w-max">
           {categories.map((cat) => {
             const isActive =
@@ -99,7 +99,7 @@ export default function Navbar() {
               <li key={cat.label} className="flex flex-col items-center text-xs">
                 <Link
                   href={cat.path}
-                  className={`rounded-2xl overflow-hidden w-[96px] h-[96px] flex items-center justify-center ${
+                  className={`rounded-2xl overflow-hidden w-[96px] h-[96px] flex items-center justify-center cursor-pointer ${
                     isActive ? "ring-4 ring-orange-500" : "shadow-md"
                   } transition-transform hover:scale-105`}
                 >

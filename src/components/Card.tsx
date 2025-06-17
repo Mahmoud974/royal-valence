@@ -57,7 +57,7 @@ export default function CardFood({
   const prixAffiche =
     prix && prix.length > tailleIdx && typeof prix[tailleIdx] === "number"
       ? `${prix[tailleIdx].toFixed(2)} €`
-      : "Prix indisponible";
+      : prix + "€";
 
   const { addCard, addBasket } = useCardStore();
 
