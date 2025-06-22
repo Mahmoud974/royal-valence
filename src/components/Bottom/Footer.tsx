@@ -74,19 +74,30 @@ export default function Footer() {
 
           {/* Paiement */}
           <div>
-            <h3 className="font-bold mb-4">Paiements acceptés</h3>
-            <div className="flex flex-wrap gap-3 items-center">
-              <Image src="/visa.png" alt="Visa" width={40} height={25} />
-              <Image
-                src="/mastercard.png"
-                alt="Mastercard"
-                width={40}
-                height={25}
-              />
-              <Image src="/paypal.png" alt="Paypal" width={60} height={25} />
-              <Image src="/edenred.png" alt="Edenred" width={60} height={25} />
-            </div>
-          </div>
+  <h3 className="font-bold mb-4">Paiements acceptés</h3>
+  <div className="flex flex-wrap gap-3 items-center">
+    <Image
+      src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
+      alt="Visa"
+      width={70}
+      height={25}
+    />
+    <Image
+      src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+      alt="Mastercard"
+      width={50}
+      height={25}
+    />
+    <Image
+      src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
+      alt="Paypal"
+      width={90}
+      height={35}
+    />
+   
+  </div>
+</div>
+
         </div>
 
         {/* Milieu : Réseaux + App mobile */}
@@ -111,20 +122,23 @@ export default function Footer() {
             <p className="font-semibold mb-2">
               Téléchargez notre application !
             </p>
-            <div className="flex gap-2 justify-center md:justify-end">
-              <Image
-                src="/appstore.png"
-                alt="App Store"
-                width={120}
-                height={40}
-              />
-              <Image
-                src="/googleplay.png"
-                alt="Google Play"
-                width={120}
-                height={40}
-              />
-            </div>
+           
+
+<div className="flex gap-2 justify-center md:justify-end">
+  <Image
+     src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+    alt="App Store"
+    width={120}
+    height={40}
+  />
+  <Image
+    src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+    alt="Google Play"
+    width={120}
+    height={40}
+  />
+</div>
+
           </div>
         </div>
 

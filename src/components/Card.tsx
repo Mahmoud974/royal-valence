@@ -109,7 +109,7 @@ export default function CardFood({
             <div className="flex flex-col gap-3">
               
           {
-            type != "dessert" && type != "salade" && type != "boisson"  &&
+            type != "dessert" && type != "salade" && type != "boisson"  &&  "salade" && type != "burger" &&
             <Select defaultValue={taille} onValueChange={setTaille}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Taille" />
