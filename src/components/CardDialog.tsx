@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import {
   AlertDialogContent,
-  AlertDialogCancel,
+   
   AlertDialogAction,
   AlertDialogFooter,
   AlertDialogDescription,
@@ -62,7 +62,7 @@ export default function CardDialog() {
               <AlertDialogTitle>
                 <div className="flex justify-between mb-3">
                 <p className="text-2xl font-bold">Cannibale</p>
-                <p className="bg-orange-600 px-2 text-white text-2xl font-semibold">
+                <p className="bg-orange-600 px-2 text-white text-2xl font-semibold rounded-xs">
                   {prixAffiche}
                 </p>
                 </div>
@@ -150,7 +150,7 @@ export default function CardDialog() {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="rounded-full bg-orange-600 border-none text-white"
+                    className="rounded-full cursor-pointer bg-orange-600 border-none text-white"
                   >
                     −
                   </Button>
@@ -158,7 +158,7 @@ export default function CardDialog() {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="rounded-full bg-orange-600 border-none text-white"
+                    className="rounded-full cursor-pointer bg-orange-600 border-none text-white"
                   >
                     +
                   </Button>
@@ -172,9 +172,26 @@ export default function CardDialog() {
       </div>
 
       {/* Footer toujours visible en bas */}
-      <AlertDialogFooter className=" ">
-        <AlertDialogCancel className="cursor-pointer">Annuler</AlertDialogCancel>
-        <AlertDialogAction className="bg-orange-600 hover:bg-orange-700">
+      <AlertDialogFooter className="flex   ">
+      <div className="flex items-center gap-2  rounded-full">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-full cursor-pointer bg-orange-600 border-none text-white"
+                  >
+                    −
+                  </Button>
+                  <span className="text-orange-600 font-bold ">1</span>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-full cursor-pointer bg-orange-600 border-none text-white"
+                  >
+                    +
+                  </Button>
+                </div>
+      
+        <AlertDialogAction className="ml-3 bg-orange-600 hover:bg-orange-700">
           <ShoppingBasket />
         </AlertDialogAction>
       </AlertDialogFooter>

@@ -16,10 +16,10 @@ export default function FoodLayout({
         <h1 className="text-2xl sm:text-3xl py-4 font-semibold">{title}</h1>
 
         <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-8 space-y-8 lg:space-y-0">
-          {/* Section Produits */}
+          
           <div className="flex-1 space-y-8">{children}</div>
 
-          {/* Section Panier */}
+         
           <div className="lg:sticky lg:top-4 w-full lg:w-[400px]">
             <Basket />
           </div>

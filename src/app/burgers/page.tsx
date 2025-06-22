@@ -8,8 +8,8 @@ export default async function BurgersPage() {
   const parsed = JSON.parse(posts.body).data;
 
   return (
-    <FoodLayout title="Les Burgers">
-      <div className="grid grid-cols-4 gap-2 flex-wrap">
+    <FoodLayout title="Les Burgers 🍔 ">
+      <div className="grid grid-cols-4 gap-2  flex-wrap">
         {parsed.map((burger, index: number) => (
           <CardFood key={index} {...burger} />
         ))}
