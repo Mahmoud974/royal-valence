@@ -40,78 +40,91 @@ export default function CardDialog() {
       : "Prix indisponible";
 
   return (
-    <AlertDialogContent className="max-w-full w-full max-h-[90vh] overflow-y-auto p-4">
-      <AlertDialogDescription> </AlertDialogDescription>
-      <div className="space-y-4">
-        <div className="relative w-full h-52 rounded-md overflow-hidden">
-          <Image
-            src="/burger.jpg"
-            alt="Cannibale"
-            fill
-            className="object-cover"
-          />
-        </div>
-        <div className="space-y-1">
-          <AlertDialogTitle>
-            <p className="text-2xl font-bold">Cannibale</p>
-            <p className="text-orange-600 text-2xl font-semibold">
-              {prixAffiche}
-            </p>
-            <p className=" text-lg">
-              Sauce barbecue, mozzarella, poulet rôti, merguez, haché au bœuf
-              goût flambé.
-            </p>
-          </AlertDialogTitle>
-        </div>
-        <div>
-          <label className="font-semibold mb-1 block">Taille</label>
-          <Select defaultValue={taille} onValueChange={setTaille}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Taille" />
-            </SelectTrigger>
-            <SelectContent>
-              {tailleOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label} : {prix[option.idx].toFixed(2)} €
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        {pates.length > 0 && (
-          <div>
-            <label className="font-semibold mb-1 block">Pâte</label>
-            <Select defaultValue={pates[0]}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Pâte" />
-              </SelectTrigger>
-              <SelectContent>
-                {pates.map((pate, idx) => (
-                  <SelectItem key={idx} value={pate}>
-                    {pate}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+    <AlertDialogContent className="max-w-[95vw] w-full max-h-[90vh]   flex flex-col p-4">
+      <AlertDialogDescription></AlertDialogDescription>
+
+      {/* Contenu principal scrollable */}
+      <div className="flex-1 overflow-y-auto overscroll-none ">
+        <div className="flex flex-col md:flex-row gap-6 w-full container">
+          {/* Image à gauche */}
+          <div className="relative w-full md:w-[300px] h-52 md:h-auto rounded-md overflow-hidden flex-shrink-0">
+            <Image
+              src="/burger.jpg"
+              alt="Cannibale"
+              fill
+              className="object-cover"
+            />
           </div>
-        )}
-        <div>
-          <label className="font-semibold mb-1 block">Sauce</label>
-          <Select defaultValue="Base Sauce BBQ">
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Sauce" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Base Sauce BBQ">Base Sauce BBQ</SelectItem>
-              <SelectItem value="Sauce tomate">Sauce tomate</SelectItem>
-              <SelectItem value="Crème fraîche">Crème fraîche</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-       <h3 className="font-bold"> Suppléments</h3>
-        <div className="relative max-w-md mx-auto">
-         
-          <div className="scroll-container">
+
+          {/* Contenu à droite */}
+          <div className="flex-1 min-w-0 space-y-4">
+            <div className="space-y-1">
+              <AlertDialogTitle>
+                <div className="flex justify-between mb-3">
+                <p className="text-2xl font-bold">Cannibale</p>
+                <p className="bg-orange-600 px-2 text-white text-2xl font-semibold">
+                  {prixAffiche}
+                </p>
+                </div>
+                <p className="font-normal">
+                  Sauce barbecue, mozzarella, poulet rôti, merguez, haché au bœuf goût flambé.
+                </p>
+              </AlertDialogTitle>
+            </div>
+
+            <div className="space-y-4 flex justify-between">
+              <div>
+                <label className="font-semibold mb-1 block">Taille</label>
+                <Select defaultValue={taille} onValueChange={setTaille}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Taille" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {tailleOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label} : {prix[option.idx].toFixed(2)} €
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {pates.length > 0 && (
+                <div>
+                  <label className="font-semibold mb-1 block">Pâte</label>
+                  <Select defaultValue={pates[0]}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Pâte" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {pates.map((pate, idx) => (
+                        <SelectItem key={idx} value={pate}>
+                          {pate}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+
+              <div>
+                <label className="font-semibold mb-1 block">Sauce</label>
+                <Select defaultValue="Base Sauce BBQ">
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Sauce" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Base Sauce BBQ">Base Sauce BBQ</SelectItem>
+                    <SelectItem value="Sauce tomate">Sauce tomate</SelectItem>
+                    <SelectItem value="Crème fraîche">Crème fraîche</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="-mt-2">
+              <h3 className="font-bold mb-2">Suppléments</h3>
+              <div className="scroll-container">
             {toppings.map((ingr, idx) => (
               <div
                 key={idx}
@@ -153,15 +166,14 @@ export default function CardDialog() {
               </div>
             ))}
           </div>
-
-          {/* Optional: dégradés aux extrémités pour un effet “fade” */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-white to-transparent"></div>
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-white to-transparent"></div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <AlertDialogFooter className="mt-6">
-        <AlertDialogCancel className="cursor">Annuler</AlertDialogCancel>
+      {/* Footer toujours visible en bas */}
+      <AlertDialogFooter className=" ">
+        <AlertDialogCancel className="cursor-pointer">Annuler</AlertDialogCancel>
         <AlertDialogAction className="bg-orange-600 hover:bg-orange-700">
           <ShoppingBasket />
         </AlertDialogAction>

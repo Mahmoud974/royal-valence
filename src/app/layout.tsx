@@ -24,7 +24,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       {/* flex ligne : [sidebar] [colonne principale] */}
-      <body className="min-h-screen flex bg-gray-50">
+      <body className=" flex bg-gray-50">
   <Providers session={session}>
     
 

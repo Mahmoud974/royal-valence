@@ -46,7 +46,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col md:flex-row text-white">
+    <main className=" flex flex-col md:flex-row text-white">
       <div className="w-full md:w-1/2 flex flex-col justify-center px-8 md:px-24 py-16 space-y-6">
         <Link href="/" className="text-sm mb-2 text-[#2a2b2c] hover:underline">
           ← Retour

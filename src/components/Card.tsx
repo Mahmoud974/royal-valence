@@ -57,7 +57,7 @@ export default function CardFood({
   const prixAffiche =
     prix && prix.length > tailleIdx && typeof prix[tailleIdx] === "number"
       ? `${prix[tailleIdx].toFixed(2)} €`
-      : prix + "€";
+      : Number(prix) + "€";
 
   const { addCard, addBasket } = useCardStore();
 
@@ -94,6 +94,7 @@ export default function CardFood({
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-3">
+              
               <Select defaultValue={taille} onValueChange={setTaille}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Taille" />
@@ -143,7 +144,7 @@ export default function CardFood({
         </Card>
       </AlertDialogTrigger>
       <AlertDialogPortal>
-        <AlertDialogOverlay className="fixed inset-0 bg-black/50" />
+        <AlertDialogOverlay   />
         <CardDialog />
       </AlertDialogPortal>
     </AlertDialog>
