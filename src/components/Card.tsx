@@ -30,11 +30,12 @@ import CardDialog from "./CardDialog";
 interface CardFoodProps {
   nom: string;
   description: string;
-  prix: number[];
+  prix: number | number[];
   image: string;
   pates?: string[];
   vegetarien?: boolean;
   id: string;
+  type: string;
 }
 
 const tailleOptions = [
@@ -55,16 +56,19 @@ export default function CardFood({
   const [taille, setTaille] = useState("medium");
 
   const tailleIdx = tailleOptions.find((opt) => opt.value === taille)?.idx ?? 1;
+  const prixArray = Array.isArray(prix) ? prix : [prix];
+  // DEBUG : Affichage des infos prix
+  console.log('prix reçu:', prix, 'prixArray:', prixArray, 'taille sélectionnée:', taille, 'index utilisé:', tailleIdx, 'prix à cet index:', prixArray[tailleIdx]);
   const prixAffiche =
-  prix && prix.length > tailleIdx && typeof prix[tailleIdx] === "number"
-    ? `${prix[tailleIdx].toFixed(2)} €`
-    : `${Number(prix).toFixed(2)} €`;
-
+    prixArray && prixArray.length > tailleIdx && typeof prixArray[tailleIdx] === "number"
+      ? `${prixArray[tailleIdx].toFixed(2)} €`
+      : `${Number(prixArray[0]).toFixed(2)} €`;
 
   const { addCard, addBasket } = useCardStore();
 
   const handleClick = () => {
-    const newItem = { nom, description, prix: prix[tailleIdx], pates,type };
+    const prixValue = prixArray && prixArray.length > tailleIdx && typeof prixArray[tailleIdx] === "number" ? prixArray[tailleIdx] : prixArray[0] ?? 0;
+    const newItem = { nom, description, prix: prixValue, pates, type };
     addCard(newItem.nom, newItem.description, newItem.prix, newItem.pates);
     addBasket(newItem);
   };
@@ -114,9 +118,9 @@ export default function CardFood({
               {tailleOptions.map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.label} :{" "}
-                  {prix && prix.length > option.idx && typeof prix[option.idx] === "number"
-                    ? prix[option.idx].toFixed(2)
-                    : "N/A"}{" "}
+                  {prixArray && prixArray.length > option.idx && typeof prixArray[option.idx] === "number"
+                    ? prixArray[option.idx].toFixed(2)
+                    : "N/A"} {" "}
                   €
                 </SelectItem>
               ))}
